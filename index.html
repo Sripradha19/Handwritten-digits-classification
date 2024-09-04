@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MNIST Digit Predictor</title>
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.9em;
+        }
+
+        h1 {
+            color: #444;
+        }
+
+        p.description {
+            color: #666;
+            max-width: 600px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="file"] {
+            margin-bottom: 15px;
+            font-size: 1em;
+        }
+
+        input[type="submit"] {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #444;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            color: #444;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        MNIST Digit Predictor
+    </header>
+    <main>
+        <h1>Upload an Image to Predict the Digit</h1>
+        <p class="description">
+            Handwritten digits classification is a common task in machine learning and computer vision.
+            It involves predicting which digit (0-9) is present in an image of a handwritten numeral.
+            This can be used in various applications such as automatic sorting of postal mail,
+            digitizing handwritten notes, and more.
+        </p>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*">
+            <input type="submit" value="Upload and Predict">
+        </form>
+        <div id="result">
+            {% if predicted_class is not none %}
+                <p>Predicted Digit: {{ predicted_class }}</p>
+            {% elif error is not none %}
+                <p>{{ error }}</p>
+            {% endif %}
+        </div>
+    </main>
+    <footer>
+        &copy; 2024 MNIST Digit Predictor. All rights reserved.
+    </footer>
+</body>
+</html>
